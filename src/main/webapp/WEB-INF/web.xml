@@ -1,0 +1,30 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <display-name>blog</display-name>
+    <filter>
+        <filter-name>nutz</filter-name>
+        <filter-class>org.nutz.mvc.NutFilter</filter-class>
+        <init-param>
+            <param-name>modules</param-name>
+            <param-value>cc.southseast.MainModule</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>nutz</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/template/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/template/error.jsp</location>
+    </error-page>
+</web-app>

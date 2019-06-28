@@ -1,0 +1,18 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OvO</title>
+    <%@ include file="./common/meta.jsp" %>
+    <meta http-equiv="Refresh" content="5;url=/">
+</head>
+<body>
+<div class="weadmin-body">
+    <div class="weadmin-trailer">
+        <img src="/resources/static/images/error.jpg" width="500px;" style="margin-top: 100px;">
+        <p style="text-align: center">Oops!你又双叒叕到了火星？</p>
+        <p style="text-align: center">我们将在五秒后到达火星救援您并把您送回地球。</p>
+    </div>
+</div>
+</body>
+</html>
