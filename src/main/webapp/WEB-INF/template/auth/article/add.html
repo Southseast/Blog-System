@@ -1,31 +1,61 @@
 <!DOCTYPE html>
 <html lang="cn">
 <head>
-    <title>评论编辑</title>
+    <title>文章编辑</title>
     <% include("/auth/common/meta.html"){} %>
 </head>
 <body>
 <%
-var comment = obj.comment!;
+var labelList = obj.labelList!;
 %>
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-card">
             <div class="layui-form" style="margin: 20px">
-                <input name="commentId" type="hidden" value="${comment.commentId!}">
-                <input name="articleId" type="hidden" value="${comment.articleId!}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="title">
+                        文章
+                    </label>
+                    <div class="layui-input-block">
+                        <input autocomplete="off" class="layui-input" id="title" name="title"
+                               required="" type="text" value="" placeholder="请输入标题">
+                    </div>
+                </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label" for="content">
                         文章
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="content" name="content"
-                               required="" type="text" value="${comment.content!}" lay-verify="content">
+                               required="" type="text" value="" lay-verify="content">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="createTime">
+                        发布日期
+                    </label>
+                    <div class="layui-input-block">
+                        <input autocomplete="off" class="layui-input" id="createTime" name="createTime"
+                               required="" type="text" value="" placeholder="选择发布日期">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="labelId">
+                        发布日期
+                    </label>
+                    <div class="layui-input-block">
+                        <select name="labelId" id="labelId">
+                            <option value="">请选择分类</option>
+                            <% for (label in labelList) { %>
+                            <option value="${label.labelId!}">${label.labelName!}</option>
+                            <% } %>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"></label>
-                    <button class="layui-btn" lay-filter="save" lay-submit="">发表评论</button>
+                    <button class="layui-btn" lay-filter="save" lay-submit="">发布文章</button>
                 </div>
             </div>
         </div>
@@ -38,13 +68,17 @@ var comment = obj.comment!;
     }).extend({
         index: 'lib/index' // 主入口模块
     }).use(['form', 'laydate', 'layedit', 'jquery'], function () {
-        var layedit = layui.layedit
+        var laydate = layui.laydate
+            , layedit = layui.layedit
             , $ = layui.$
             , form = layui.form;
+        laydate.render({
+            elem: '#createTime' //指定元素
+        });
 
         layedit.set({
             uploadImage: {
-                url: '/upload/comment'
+                url: '/upload/article'
                 , type: 'post'
             }
         });
@@ -57,12 +91,12 @@ var comment = obj.comment!;
             }
         });
         form.render();
-        
+
         //监听提交
         form.on('submit(save)', function (data) {
             let index = parent.layer.getFrameIndex(window.name);
             $.ajax({
-                url: '/auth/comment/edit',
+                url: '/auth/article/add',
                 type: 'POST',
                 dataType: 'json',
                 data: data.field,

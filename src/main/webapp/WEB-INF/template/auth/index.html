@@ -11,7 +11,7 @@ var user = obj.user!;
 <div id="LAY_app">
     <div class="layui-layout layui-layout-admin">
         <!-- 头部区域 -->
-        <% include("/auth/common/header.html"){} %>
+        <% include("/auth/common/header.html",{user: user}){} %>
         <!-- 侧边菜单 -->
         <% include("/auth/common/side.html",{user: user}){} %>
         <!-- 页面标签 -->
@@ -32,7 +32,8 @@ var user = obj.user!;
             </div>
             <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
                 <ul class="layui-tab-title" id="LAY_app_tabsheader">
-                    <li lay-id="/auth/overview" lay-attr="/auth/overview" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                    <li lay-id="/auth/overview" lay-attr="/auth/overview" class="layui-this"><i
+                            class="layui-icon layui-icon-home"></i></li>
                 </ul>
             </div>
         </div>

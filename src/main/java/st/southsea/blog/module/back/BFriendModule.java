@@ -1,14 +1,16 @@
-package st.southsea.blog.module;
+package st.southsea.blog.module.back;
 
 import org.nutz.dao.pager.Pager;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Lang;
 import org.nutz.mvc.adaptor.JsonAdaptor;
 import org.nutz.mvc.annotation.*;
 import org.nutz.mvc.filter.CheckSession;
 import st.southsea.blog.base.Result;
 import st.southsea.blog.base.module.BaseModule;
 import st.southsea.blog.bean.Friend;
+import st.southsea.blog.bean.Label;
 import st.southsea.blog.service.FriendService;
 import st.southsea.blog.service.UserService;
 
@@ -24,7 +26,7 @@ import java.util.Map;
 @IocBean
 @At("/auth/friend")
 @Filters(@By(type = CheckSession.class, args = {"admin", "/auth/login"}))
-public class FriendModule extends BaseModule {
+public class BFriendModule extends BaseModule {
 
     @Inject
     private FriendService friendService;
@@ -32,16 +34,13 @@ public class FriendModule extends BaseModule {
     @Inject
     private UserService userService;
 
-    // 好友一览
+    // 主页
     @At("/")
     @Ok("beetl:/auth/friend/index.html")
-    public Object index(HttpSession session) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("user", userService.fetch((String) session.getAttribute("user")));
-        return map;
+    public void index(HttpSession session) {
     }
 
-    // 查询所有好友
+    // 表格
     @At("/list")
     @POST
     public Object list(Friend friend, int page, int limit) {
@@ -50,13 +49,7 @@ public class FriendModule extends BaseModule {
         return layuiTable(articleList, friendService.count(friend));
     }
 
-    // 好友编辑
-    @At("/edit")
-    @Ok("beetl:/auth/friend/edit.html")
-    public void edit() {
-    }
-
-    // 好友修改
+    // 编辑页面
     @At("/edit/?")
     @Ok("beetl:/auth/friend/edit.html")
     public Object edit(long friendId) {
@@ -65,36 +58,48 @@ public class FriendModule extends BaseModule {
         return map;
     }
 
-    // 增加/修改好友
+    // 编辑好友
     @At
     @POST
     public Result edit(Friend friend) {
-        if (friendService.fetch(friend.getFriendId()) != null) {
+        if (Lang.isNotEmpty(friendService.fetch(friend.getFriendId()))) {
             friendService.update(friend);
-        } else {
-            friendService.insert(friend);
+            return ajaxSuccess("修改成功");
         }
-        return ajaxSuccess("好友增改成功");
+        return ajaxError("修改失败");
     }
 
-    // 删除好友
+    // 添加页面
+    @At("/add")
+    @Ok("beetl:/auth/friend/add.html")
+    public void add() {
+    }
+
+    // 添加分类
+    @At
+    @POST
+    public Result add(Friend friend) {
+        if (Lang.isEmpty(friendService.fetch(friend.getFriendId()))) {
+            friendService.insert(friend);
+            return ajaxSuccess("添加成功");
+        }
+        return ajaxError("添加失败");
+    }
+
+    // 单个删除
     @At
     @POST
     public Result delete(long friendId) {
-        if (friendService.fetch(friendId) == null) {
-            return ajaxError("该好友不存在");
-        }
-        int i = friendService.delete(friendId);
+        friendService.delete(friendId);
         return ajaxSuccess("删除成功");
     }
 
-    // 删除好友
+    // 批量删除
     @At
     @POST
     @AdaptBy(type = JsonAdaptor.class)
-    public Result deleteList(List<Friend> friendList) {
-        int i = friendService.delete(friendList);
+    public Result delete(List<Friend> friendList) {
+        friendService.delete(friendList);
         return ajaxSuccess("删除成功");
     }
-
 }

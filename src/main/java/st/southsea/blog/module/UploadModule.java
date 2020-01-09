@@ -84,4 +84,17 @@ public class UploadModule {
         re.setv("data", SAVE("comment", tempFile));
         return Json.toJson(re);
     }
+
+    // 更新文章接口
+    @At("/article")
+    @POST
+    @Ok("raw:json")
+    @AdaptBy(type = UploadAdaptor.class, args = {"ioc:upload"})
+    public Object article(HttpSession session, @Param("file") TempFile tempFile) throws IOException, NoSuchAlgorithmException {
+        NutMap re = NutMap.NEW();
+        re.setv("code", 0);
+        re.setv("msg", "success!");
+        re.setv("data", SAVE("article", tempFile));
+        return Json.toJson(re);
+    }
 }

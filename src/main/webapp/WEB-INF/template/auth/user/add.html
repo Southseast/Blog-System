@@ -5,9 +5,6 @@
     <% include("/auth/common/meta.html"){} %>
 </head>
 <body>
-<%
-var user = obj.user!;
-%>
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-card">
@@ -17,12 +14,12 @@ var user = obj.user!;
                     <div class="layui-input-block">
                         <img class="avatar" id="avatar"
                              itemprop="image" name="avatar"
-                             src="${user.avatarUrl!}" width="100px">
+                             src="/resources/images/init/avatar.png" width="100px">
                         <button class="layui-btn layui-btn-sm" id="upload" name="upload" type="button">
                             <i class="layui-icon">&#xe67c;</i>上传头像
                         </button>
                         <input id="avatarUrl" name="avatarUrl" type="hidden"
-                               value="${user.avatarUrl!}">
+                               value="/resources/images/init/avatar.png">
                         <p id="hint"></p>
                     </div>
                 </div>
@@ -33,7 +30,7 @@ var user = obj.user!;
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="nickname" lay-verify="required"
-                               name="nickname" required="" type="text" value="${user.nickname!}" placeholder="请输入昵称">
+                               name="nickname" required="" type="text" value="" placeholder="请输入昵称">
                     </div>
                 </div>
 
@@ -43,7 +40,7 @@ var user = obj.user!;
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="email" lay-verify="required" name="email"
-                               required="" type="text" value="${user.email!}" placeholder="请输入邮箱">
+                               required="" type="text" value="" placeholder="请输入邮箱">
                     </div>
                 </div>
 
@@ -54,10 +51,8 @@ var user = obj.user!;
                     <div class="layui-input-block">
                         <select id="sex" name="sex">
                             <option value="">请选择性别</option>
-                            <option value="1"
-                            <% if (user.sex! == 1) { %> selected <% } %> >男</option>
-                            <option value="2"
-                            <% if (user.sex! == 2) { %> selected <% } %> >女</option>
+                            <option value="1">男</option>
+                            <option value="2">女</option>
                         </select>
                     </div>
                 </div>
@@ -68,7 +63,7 @@ var user = obj.user!;
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="telphone" lay-verify="required"
-                               name="telphone" required="" type="text" value="${user.telphone!}" placeholder="请输入电话">
+                               name="telphone" required="" type="text" value="" placeholder="请输入电话">
                     </div>
                 </div>
 
@@ -78,7 +73,7 @@ var user = obj.user!;
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="region" lay-verify="required" name="region"
-                               required="" type="text" value="${user.region!}" placeholder="请输入地区">
+                               required="" type="text" value="" placeholder="请输入地区">
                     </div>
                 </div>
 
@@ -88,7 +83,7 @@ var user = obj.user!;
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="occupation" lay-verify="required"
-                               name="occupation" required="" type="text" value="${user.occupation!}"
+                               name="occupation" required="" type="text" value=""
                                placeholder="请输入工作">
                     </div>
                 </div>
@@ -99,7 +94,7 @@ var user = obj.user!;
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="school" lay-verify="required"
-                               name="school" required="" type="text" value="${user.school!}"
+                               name="school" required="" type="text" value=""
                                placeholder="请输入学校">
                     </div>
                 </div>
@@ -110,7 +105,18 @@ var user = obj.user!;
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="signature" lay-verify="required"
-                               name="signature" required="" type="text" value="${user.signature!}"
+                               name="signature" required="" type="text" value=""
+                               placeholder="请输入个性签名">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="password">
+                        密码
+                    </label>
+                    <div class="layui-input-block">
+                        <input autocomplete="off" class="layui-input" id="password" lay-verify="required"
+                               name="password" required="" type="text" value=""
                                placeholder="请输入个性签名">
                     </div>
                 </div>
@@ -121,7 +127,7 @@ var user = obj.user!;
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="blogAddress" lay-verify="required"
-                               name="blogAddress" required="" type="text" value="${user.blogAddress!}"
+                               name="blogAddress" required="" type="text" value=""
                                placeholder="请输入博客地址">
                     </div>
                 </div>
@@ -132,7 +138,7 @@ var user = obj.user!;
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="githubAddress" lay-verify="required"
-                               name="githubAddress" required="" type="text" value="${user.githubAddress!}"
+                               name="githubAddress" required="" type="text" value=""
                                placeholder="请输入Github地址">
                     </div>
                 </div>
@@ -186,7 +192,7 @@ var user = obj.user!;
         form.on('submit(save)', function (data) {
             let index = parent.layer.getFrameIndex(window.name);
             $.ajax({
-                url: '/auth/user/edit',
+                url: '/auth/user/add',
                 type: 'POST',
                 dataType: 'json',
                 data: data.field,

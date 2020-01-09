@@ -27,7 +27,7 @@ import java.util.Map;
 @IocBean
 @At("/auth/comment")
 @Filters(@By(type = CheckSession.class, args = {"user", "/auth/login"}))
-public class CommentBModule extends BaseModule {
+public class BCommentModule extends BaseModule {
 
     @Inject
     private CommentService commentService;
@@ -77,16 +77,16 @@ public class CommentBModule extends BaseModule {
             // 判断是否为管理员
             if (user.getPermissionId() == 1) {
                 commentService.update(comment);
-                return ajaxSuccess("评论成功");
+                return ajaxSuccess("修改成功");
             } else {
                 // 判断用户修改的是否为自己的评论
                 if (user.getEmail().equals(commentService.fetch(comment.getCommentId()).getEmail())) {
                     commentService.update(comment);
-                    return ajaxSuccess("评论成功");
+                    return ajaxSuccess("修改成功");
                 }
             }
         }
-        return ajaxError("评论失败");
+        return ajaxError("修改失败");
     }
 
     // 单个删除
@@ -108,7 +108,7 @@ public class CommentBModule extends BaseModule {
         return ajaxError("删除失败");
     }
 
-    // 删除评论
+    // 批量删除
     @At
     @POST
     @AdaptBy(type = JsonAdaptor.class)

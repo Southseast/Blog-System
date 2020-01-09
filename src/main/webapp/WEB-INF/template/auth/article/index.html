@@ -1,94 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cn">
 <head>
     <title>文章管理</title>
-    <% include("../common/meta.html"){} %>
+    <% include("/auth/common/meta.html"){} %>
 </head>
 <body>
 <%
 var labelList = obj.labelList!;
 %>
-<!-- 顶部开始 -->
-<% include("../common/top.html"){} %>
-<!-- 顶部结束 -->
-<!-- 中部开始 -->
-<!-- 左侧菜单开始 -->
-<% include("../common/left_nav.html"){} %>
-<!-- <div class="x-slide_left"></div> -->
-<!-- 左侧菜单结束 -->
-<!-- 右侧主体开始 -->
-<div class="page-content">
-    <div class="weadmin-body">
-        <blockquote class="layui-elem-quote">文章管理</blockquote>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
         <div class="layui-card">
-            <div class="layui-card-body">
-                <div class="layui-row">
-                    <form class="layui-form layui-col-md12 we-search">
-                        <div class="layui-inline">
-                            <input type="text" name="title" autocomplete="off" placeholder="请输入标题"
-                                   class="layui-input">
-                        </div>
-                        <div class="layui-inline">
-                            <input type="text" name="content" autocomplete="off" placeholder="请输入内容"
-                                   class="layui-input">
-                        </div>
-                        <div class="layui-inline">
-                            <select name="labelId">
-                                <option value="">请选择分类</option>
-                                <% for (label in labelList) { %>
-                                    <option value="${label.labelId!}">${label.labelName!}</option>
-                                <% } %>
-                            </select>
-                        </div>
-                        <div class="layui-inline">
-                            <input type="text" id="startTime" name="createTime" autocomplete="off"
-                                   placeholder="开始时间"
-                                   class="layui-input">
-                        </div>
-                        <div class="layui-inline">
-                            <input type="text" id="endTime" name="updateTime" autocomplete="off" placeholder="结束时间"
-                                   class="layui-input">
-                        </div>
-                        <div class="layui-inline">
-                            <button class="layui-btn" lay-submit lay-filter="search"><i
-                                    class="layui-icon">&#xe615;</i>
-                            </button>
-                        </div>
-                    </form>
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <div class="layui-inline">
+                    <input autocomplete="off" class="layui-input" name="title" placeholder="请输入标题"
+                           type="text">
                 </div>
+                <div class="layui-inline">
+                    <input autocomplete="off" class="layui-input" name="content" placeholder="请输入内容"
+                           type="text">
+                </div>
+                <div class="layui-inline">
+                    <select name="labelId">
+                        <option value="">请选择分类</option>
+                        <% for (label in labelList) { %>
+                        <option value="${label.labelId!}">${label.labelName!}</option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="layui-inline">
+                    <input id="startTime" autocomplete="off" class="layui-input" name="createTime" placeholder="开始时间"
+                           type="layui-input">
+                </div>
+                <div class="layui-inline">
+                    <input id="endTime" autocomplete="off" class="layui-input" name="updateTime" placeholder="结束时间"
+                           type="layui-input">
+                </div>
+                <div class="layui-inline" style="line-height: 5px;">
+                    <button class="layui-btn layuiadmin-btn-useradmin" lay-filter="search" lay-submit="">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="layui-card-body">
                 <table class="layui-hide" id="manage" lay-filter="manage"></table>
-                <script type="text/html" id="topbar">
+                <script id="topbar" type="text/html">
                     <div class="layui-btn-container">
-                        <button class="layui-btn layui-btn-danger" lay-event="delAll"><i class="layui-icon"></i>批量删除
+                        <button class="layui-btn layuiadmin-btn-role layui-btn-sm layui-btn-danger"
+                                lay-event="batchDel" data-type="batchDel">批量删除
                         </button>
-                        <button class="layui-btn layui-btn-normal"
-                                onclick="WeAdminShow('文章编辑', '/auth/article/edit', 1000, 900)"><i
-                                class="layui-icon"></i>添加
+                        <button class="layui-btn layuiadmin-btn-role layui-btn-sm" lay-event="add"
+                                data-type="add">添加
                         </button>
                     </div>
                 </script>
-                <script type="text/html" id="toolbar">
+                <script id="toolbar" type="text/html">
                     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</a>
                 </script>
             </div>
         </div>
-
     </div>
 </div>
-<div class="page-content-bg"></div>
-<!-- 右侧主体结束 -->
-<!-- 中部结束 -->
-<!-- 底部开始 -->
-
-<% include("../common/footer.html"){} %>
-<!-- 底部结束 -->
-<script type="text/javascript">
+<script src="/resources/layuiadmin/layui/layui.js"></script>
+<script>
     layui.config({
-        base: '/resources/static/js/'
-    }).use('admin');
-
-    layui.use(['table', 'jquery', 'form', 'laydate'], function () {
+        base: '/resources/layuiadmin/' // 静态资源所在路径
+    }).extend({
+        index: 'lib/index' // 主入口模块
+    }).use(['table', 'jquery', 'form', 'laydate'], function () {
         var table = layui.table
             , form = layui.form
             , laydate = layui.laydate
@@ -132,9 +112,9 @@ var labelList = obj.labelList!;
         table.on('toolbar(manage)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
-                case 'delAll':
+                case 'batchDel':
                     $.ajax({
-                        url: '/auth/article/deleteList',
+                        url: '/auth/article/delete',
                         type: 'POST',
                         dataType: 'json',
                         data: JSON.stringify(checkStatus.data),
@@ -149,9 +129,16 @@ var labelList = obj.labelList!;
                         }
                     });
                     break;
+                case 'add':
+                    layer.open({
+                        type: 2
+                        , title: '发布文章'
+                        , content: '/auth/article/add/'
+                        , area: ['1000px', '700px']
+                    });
+                    break;
             }
         });
-
 
         table.on('tool(manage)', function (obj) {
             var data = obj.data;
@@ -178,7 +165,7 @@ var labelList = obj.labelList!;
                     type: 2,
                     title: '文章编辑',
                     content: '/auth/article/edit/' + data.articleId,
-                    area: ['1000px', '900px']
+                    area: ['1000px', '700px']
                 })
             }
         });

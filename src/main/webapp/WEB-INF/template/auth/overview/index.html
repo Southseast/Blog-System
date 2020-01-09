@@ -31,51 +31,33 @@ serverHost = obj.serverHost!;
                                 <div carousel-item>
                                     <ul class="layui-row layui-col-space10">
                                         <li class="layui-col-xs3">
-                                            <a lay-href="home/homepage1.html">
+                                            <a lay-href="/auth/comment">
                                                 <i class="layui-icon layui-icon-console"></i>
-                                                <cite>主页一</cite>
+                                                <cite>评论管理</cite>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs3">
-                                            <a lay-href="home/homepage2.html">
+                                            <a lay-href="/auth/article">
                                                 <i class="layui-icon layui-icon-chart"></i>
-                                                <cite>主页二</cite>
+                                                <cite>文章管理</cite>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs3">
-                                            <a lay-href="component/layer/list.html">
+                                            <a lay-href="/auth/label">
                                                 <i class="layui-icon layui-icon-template-1"></i>
-                                                <cite>弹层</cite>
+                                                <cite>分类管理</cite>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs3">
-                                            <a layadmin-event="im">
+                                            <a lay-href="/auth/user">
                                                 <i class="layui-icon layui-icon-chat"></i>
-                                                <cite>聊天</cite>
+                                                <cite>用户管理</cite>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs3">
-                                            <a lay-href="component/progress/index.html">
+                                            <a lay-href="/auth/friend">
                                                 <i class="layui-icon layui-icon-find-fill"></i>
-                                                <cite>进度条</cite>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs3">
-                                            <a lay-href="app/workorder/list.html">
-                                                <i class="layui-icon layui-icon-survey"></i>
-                                                <cite>工单</cite>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs3">
-                                            <a lay-href="user/user/list.html">
-                                                <i class="layui-icon layui-icon-user"></i>
-                                                <cite>用户</cite>
-                                            </a>
-                                        </li>
-                                        <li class="layui-col-xs3">
-                                            <a lay-href="set/system/website.html">
-                                                <i class="layui-icon layui-icon-set"></i>
-                                                <cite>设置</cite>
+                                                <cite>好友管理</cite>
                                             </a>
                                         </li>
                                     </ul>
@@ -89,7 +71,6 @@ serverHost = obj.serverHost!;
                     <div class="layui-card">
                         <div class="layui-card-header">概况</div>
                         <div class="layui-card-body">
-
                             <div class="layui-carousel layadmin-carousel layadmin-backlog">
                                 <div carousel-item>
                                     <ul class="layui-row layui-col-space10">
@@ -123,24 +104,6 @@ serverHost = obj.serverHost!;
                         </div>
                     </div>
                 </div>
-                <div class="layui-col-md12">
-                    <div class="layui-card">
-                        <div class="layui-tab layui-tab-brief layadmin-latestData">
-                            <ul class="layui-tab-title">
-                                <li class="layui-this">今日热搜</li>
-                                <li>今日热帖</li>
-                            </ul>
-                            <div class="layui-tab-content">
-                                <div class="layui-tab-item layui-show">
-                                    <table id="LAY-index-topSearch"></table>
-                                </div>
-                                <div class="layui-tab-item">
-                                    <table id="LAY-index-topCard"></table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -156,18 +119,14 @@ serverHost = obj.serverHost!;
                         <tbody>
                         <tr>
                             <th>博客名称</th>
-                            <td>${config.blogName!}</td>
+                            <td>南溟有猫</td>
                         </tr>
                         <tr>
                             <td>好友总数</td>
                             <td>${friendCount!}</td>
                         </tr>
                         <tr>
-                            <td>创建时间</td>
-                            <td>${config.createTime!}</td>
-                        </tr>
-                        <tr>
-                            <td>服务器地址</td>
+                            <td>IP地址</td>
                             <td>${serverHost!}</td>
                         </tr>
                         <tr>

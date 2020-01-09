@@ -90,9 +90,9 @@
         table.on('toolbar(manage)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
-                case 'delAll':
+                case 'batchDel':
                     $.ajax({
-                        url: '/auth/comment/deleteList',
+                        url: '/auth/comment/delete',
                         type: 'POST',
                         dataType: 'json',
                         data: JSON.stringify(checkStatus.data),

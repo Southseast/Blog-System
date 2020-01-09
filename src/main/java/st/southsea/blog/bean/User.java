@@ -25,7 +25,7 @@ public class User extends BasePojo {
     private String email;
 
     // 头像地址
-    private String avatarUrl = "/resources/static/images/avatar.png";
+    private String avatarUrl = "/resources/images/init/avatar.png";
 
     // 昵称
     private String nickname;

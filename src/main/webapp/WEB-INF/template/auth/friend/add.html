@@ -5,22 +5,17 @@
     <% include("../common/meta.html"){} %>
 </head>
 <body>
-<%
-var friend = obj.friend!;
-%>
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-card">
             <div class="layui-form" style="margin: 20px">
-
-                <input name="friendId" type="hidden" value="${friend.friendId!}">
                 <div class="layui-form-item">
                     <label class="layui-form-label" for="nickname">
                         昵称
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="nickname" name="nickname"
-                               required="" type="text" value="${friend.nickname!}" placeholder="请输入类名">
+                               required="" type="text" value="" placeholder="请输入类名">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -29,7 +24,7 @@ var friend = obj.friend!;
                     </label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" id="blogAddress" name="blogAddress"
-                               required="" type="text" value="${friend.blogAddress!}" placeholder="请输入博客地址">
+                               required="" type="text" value="" placeholder="请输入博客地址">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -55,7 +50,7 @@ var friend = obj.friend!;
         form.on('submit(save)', function (data) {
             let index = parent.layer.getFrameIndex(window.name);
             $.ajax({
-                url: '/auth/friend/edit',
+                url: '/auth/friend/add',
                 type: 'POST',
                 dataType: 'json',
                 data: data.field,

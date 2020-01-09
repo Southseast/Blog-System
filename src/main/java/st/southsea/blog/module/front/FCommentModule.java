@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 @IocBean
 @At("/comment")
 @Filters()
-public class CommentFModule extends BaseModule {
+public class FCommentModule extends BaseModule {
 
     @Inject
     private CommentService commentService;

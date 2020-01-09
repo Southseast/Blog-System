@@ -10,50 +10,50 @@ var article = obj.article!,
 beforeArticle = obj.beforeArticle!,
 afterArticle = obj.afterArticle!;
 %>
-<div class="container sidebar-position-left page-post-detail">
+<div class="container sidebar-position-left page-save-detail">
     <% include("common/header.html"){} %>
     <main id="main" class="main">
         <div class="main-inner">
             <div class="content-wrap">
                 <div class="content">
-                    <div id="posts" class="posts-expand">
-                        <article class="post post-type-normal">
-                            <div class="post-block" style="opacity: 1; display: block;">
-                                <header class="post-header"
+                    <div id="saves" class="saves-expand">
+                        <article class="save save-type-normal">
+                            <div class="save-block" style="opacity: 1; display: block;">
+                                <header class="save-header"
                                         style="opacity: 1; display: block; transform: translateY(0px);">
-                                    <h2 class="post-title">
-                                        <a class="post-title-link" href="/article/${article.articleId!}">
+                                    <h2 class="save-title">
+                                        <a class="save-title-link" href="/article/${article.articleId!}">
                                             ${article.title!}
                                         </a>
                                     </h2>
-                                    <div class="post-meta">
-                                        <span class="post-time">
-                                            <span class="post-meta-item-icon">
+                                    <div class="save-meta">
+                                        <span class="save-time">
+                                            <span class="save-meta-item-icon">
                                                 <i class="fa fa-calendar-o"></i>
                                             </span>
-                                            <span class="post-meta-item-text">发表于</span>
+                                            <span class="save-meta-item-text">发表于</span>
                                             <span>${article.createTime!}</span>
-                                            <span class="post-meta-divider">|</span>
-                                            <span class="post-meta-item-icon">
+                                            <span class="save-meta-divider">|</span>
+                                            <span class="save-meta-item-icon">
                                                 <i class="fa fa-calendar-check-o"></i>
                                             </span>
-                                            <span class="post-meta-item-text">更新于</span>
+                                            <span class="save-meta-item-text">更新于</span>
                                             <span>${article.updateTime!}</span>
                                         </span>
-                                        <span class="post-comments-count">
-                                            <span class="post-meta-divider">|</span>
-                                            <span class="post-meta-item-icon">
+                                        <span class="save-comments-count">
+                                            <span class="save-meta-divider">|</span>
+                                            <span class="save-meta-item-icon">
                                                 <i class="fa fa-comment-o"></i>
                                             </span>
-                                            <span class="post-meta-item-text">评论数：</span>
+                                            <span class="save-meta-item-text">评论数：</span>
                                             <span>${article.commentList.~size!}</span>
                                         </span>
                                         <span class="leancloud_visitors">
-                                            <span class="post-meta-divider">|</span>
-                                            <span class="post-meta-item-icon">
+                                            <span class="save-meta-divider">|</span>
+                                            <span class="save-meta-item-icon">
                                                 <i class="fa fa-eye"></i>
                                             </span>
-                                            <span class="post-meta-item-text">热度：</span>
+                                            <span class="save-meta-item-text">热度：</span>
                                             <span class="leancloud-visitors-count">
                                                 ${article.browseVolume!}
                                             </span>
@@ -61,27 +61,27 @@ afterArticle = obj.afterArticle!;
                                         </span>
                                     </div>
                                 </header>
-                                <div class="post-body post-content"
+                                <div class="save-body save-content"
                                      style="opacity: 1; display: block; transform: translateY(0px);">
                                     ${article.content!}
                                 </div>
-                                <footer class="post-footer">
+                                <footer class="save-footer">
                                     <% if (isNotEmpty(article.label)) { %>
-                                        <div class="post-tags">
+                                        <div class="save-tags">
                                             <a href="/label/${article.label.labelId!}/" rel="tag">
                                                 <i class="fa fa-tag"></i> ${article.label.labelName!}</a>
                                         </div>
                                     <% } %>
-                                    <div class="post-nav">
+                                    <div class="save-nav">
                                         <% if (isNotEmpty(beforeArticle)) { %>
-                                            <div class="post-nav-next post-nav-item">
+                                            <div class="save-nav-next save-nav-item">
                                                 <a href="/article/${beforeArticle.articleId!}/" rel="next">
                                                     <i class="fa fa-chevron-left"></i> ${beforeArticle.title!} </a>
                                             </div>
                                         <% } %>
                                         <% if (isNotEmpty(afterArticle)) { %>
-                                            <span class="post-nav-divider"></span>
-                                            <div class="post-nav-prev post-nav-item">
+                                            <span class="save-nav-divider"></span>
+                                            <div class="save-nav-prev save-nav-item">
                                                 <a href="/article/${afterArticle.articleId!}/" rel="prev">
                                                     <i class="fa fa-chevron-right"></i> ${afterArticle.title!} </a>
                                             </div>
@@ -93,7 +93,7 @@ afterArticle = obj.afterArticle!;
                     </div>
                     <div class="comments" id="comments" style="opacity: 1; display: block;">
                         <% if (isNotEmpty(user.email)) { %>
-                            <form class="layui-form" method="post">
+                            <form class="layui-form" method="save">
                                 <input name="articleId" type="hidden" value="${article.articleId!}">
                                 <input name="email" type="hidden" value="${user.email!}">
                                 <div class="layui-form-item">
@@ -103,12 +103,12 @@ afterArticle = obj.afterArticle!;
                                 <div class="layui-inline">
 <!--                                    <input name="captcha" placeholder="验证码" type="text" lay-verify="required" class="article-captcha" id="captcha">-->
 <!--                                   <img src="/auth/captcha" onclick="changeCaptcha();" id="captchaImg" class="article-captchaImg" alt="验证码刷新中">-->
-                                    <input class="comment-post" type="submit" lay-submit lay-filter="post">
+                                    <input class="comment-save" type="submit" lay-submit lay-filter="save">
                                 </div>
                             </form>
                         <% } else { %>
                             <nav class="site-state motion-element">
-                                <div class="site-state-item site-state-posts">
+                                <div class="site-state-item site-state-saves">
                                     <span class="site-state-item-name">您还未登陆哦！</span>
                                     <a href="/auth/">
                                         <span class="site-state-item-count">登陆</span>
@@ -186,7 +186,7 @@ afterArticle = obj.afterArticle!;
         var form = layui.form
             , $ = layui.$;
         //监听提交
-        form.on('submit(post)', function (data) {
+        form.on('submit(save)', function (data) {
             $.ajax({
                 url: '/auth/comment/edit',
                 type: 'POST',

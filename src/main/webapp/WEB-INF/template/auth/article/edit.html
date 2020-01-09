@@ -1,108 +1,102 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cn">
 <head>
-    <title>撰写</title>
-    <% include("../common/meta.html"){} %>
+    <title>文章编辑</title>
+    <% include("/auth/common/meta.html"){} %>
 </head>
-<style>
-    .simditor .simditor-body {
-        /*开启滚动条*/
-        overflow-y: scroll !important;
-        /*设置高度*/
-        min-height: 600px !important;
-        max-height: 600px !important;
-    }
-</style>
 <body>
 <%
 var article = obj.article!,
 labelList = obj.labelList!;
 %>
-<div class="layui-fluid" style="margin: 20px;">
-    <form class="layui-form" action="">
-        <div class="layui-row layui-col-space15">
-            <div class="layui-col-md9">
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-card">
+            <div class="layui-form" style="margin: 20px">
                 <input name="articleId" type="hidden" value="${article.articleId!}">
                 <div class="layui-form-item">
-                    <input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input" required
-                           value="${article.title!}">
+                    <label class="layui-form-label" for="title">
+                        文章
+                    </label>
+                    <div class="layui-input-block">
+                        <input autocomplete="off" class="layui-input" id="title" name="title"
+                               required="" type="text" value="${article.title!}" placeholder="请输入标题">
+                    </div>
                 </div>
-                <div class="layui-form-item layui-form-text">
-                    <textarea id="content" name="content" placeholder="请输入内容" class="simditor" required
-                              style="resize:none; display: none;">${article.content!}</textarea>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="content">
+                        文章
+                    </label>
+                    <div class="layui-input-block">
+                        <input autocomplete="off" class="layui-input" id="content" name="content"
+                               required="" type="text" value="${article.content!}" lay-verify="content">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="createTime">
+                        发布日期
+                    </label>
+                    <div class="layui-input-block">
+                        <input autocomplete="off" class="layui-input" id="createTime" name="createTime"
+                               required="" type="text" value="${article.createTime!,'yyyy-MM-dd'}" placeholder="选择发布日期">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="labelId">
+                        发布日期
+                    </label>
+                    <div class="layui-input-block">
+                        <select name="labelId" id="labelId">
+                            <option value="">请选择分类</option>
+                            <% for (label in labelList) { %>
+                            <option value="${label.labelId!}"
+                            <% if (label.labelId == article.labelId) { %>selected<% } %>>${label.labelName!}</option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"></label>
+                    <button class="layui-btn" lay-filter="save" lay-submit="">发布文章</button>
                 </div>
             </div>
-
-            <div class="layui-col-md3">
-                <div class="layui-form-item">
-                    <input placeholder="选择发布日期" type="text" class="layui-input" id="dataPickup" name="createTime"
-                           value="${article.createTime!}">
-                </div>
-
-                <div class="layui-form-item">
-
-                    <select name="labelId">
-                        <option value="">请选择分类</option>
-                        <% for (label in labelList) { %>
-                            <option value="${label.labelId!}" <% if (label.labelId == article.labelId) { %>selected<% } %>>${label.labelName!}</option>
-                        <% } %>
-                    </select>
-                </div>
-
-                <div class="layui-form-item">
-                    <button class="layui-btn" lay-submit lay-filter="post" style="width: 100%">发布文章</button>
-                </div>
-            </div>
-
         </div>
-    </form>
+    </div>
 </div>
-
-<!--<link rel="stylesheet" href="/resources/simditor/styles/app.css">-->
-<link rel="stylesheet" href="/resources/simditor/styles/mobile.css">
-<link rel="stylesheet" href="/resources/simditor/styles/simditor.css">
-<script src="/resources/simditor/scripts/module.js"></script>
-<script src="/resources/simditor/scripts/uploader.js"></script>
-<script src="/resources/simditor/scripts/hotkeys.js"></script>
-<script src="/resources/simditor/scripts/simditor.js"></script>
-
-<script type="text/javascript">
-
-
-    var editor = new Simditor({
-        toolbar: [
-            'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
-            'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
-            'image', 'hr', '|', 'alignment'
-        ],
-        textarea: '#content',
-        placeholder: '写点什么...',
-        defaultImage: '/resources/static/images/avatar.png',
-        imageButton: ['upload'],
-        upload: {
-            url: '/auth/article/upload',
-            params: null,
-            fileKey: 'file',
-            leaveConfirm: '正在上传文件..',
-            connectionCount: 3
-        },
-        success: function (data) {
-            alert(data);
-        }
-    });
-
+<script src="/resources/layuiadmin/layui/layui.js"></script>
+<script>
     layui.config({
-        base: '/resources/static/js/'
-    }).use('admin');
-    layui.use(['form', 'laydate'], function () {
+        base: '/resources/layuiadmin/' // 静态资源所在路径
+    }).extend({
+        index: 'lib/index' // 主入口模块
+    }).use(['form', 'laydate', 'layedit', 'jquery'], function () {
         var laydate = layui.laydate
+            , layedit = layui.layedit
+            , $ = layui.$
             , form = layui.form;
         laydate.render({
-            elem: '#dataPickup' //指定元素
+            elem: '#createTime' //指定元素
         });
 
+        layedit.set({
+            uploadImage: {
+                url: '/upload/article'
+                , type: 'post'
+            }
+        });
+        var index = layedit.build('content', {
+            tool: ['strong', 'italic', 'underline', 'del', '|', 'left', 'center', 'right', 'link', 'unlink', 'face', 'image']
+        });
+        form.verify({
+            content: function () {
+                layedit.sync(index);
+            }
+        });
+        form.render();
+
         //监听提交
-        form.on('submit(post)', function (data) {
+        form.on('submit(save)', function (data) {
             let index = parent.layer.getFrameIndex(window.name);
             $.ajax({
                 url: '/auth/article/edit',

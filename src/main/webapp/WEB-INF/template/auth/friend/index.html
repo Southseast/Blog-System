@@ -1,74 +1,55 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cn">
 <head>
     <title>好友管理</title>
-    <% include("../common/meta.html"){} %>
+    <% include("/auth/common/meta.html"){} %>
 </head>
 <body>
-<!-- 顶部开始 -->
-<% include("../common/top.html"){} %>
-<!-- 顶部结束 -->
-<!-- 中部开始 -->
-<!-- 左侧菜单开始 -->
-<% include("../common/left_nav.html"){} %>
-<!-- <div class="x-slide_left"></div> -->
-<!-- 左侧菜单结束 -->
-<!-- 右侧主体开始 -->
-<div class="page-content">
-    <div class="weadmin-body">
-        <blockquote class="layui-elem-quote">好友管理</blockquote>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
         <div class="layui-card">
-            <div class="layui-card-body">
-                <div class="layui-row">
-                    <form class="layui-form layui-col-md12 we-search">
-                        <div class="layui-inline">
-                            <input type="text" name="nickname" autocomplete="off" placeholder="请输入昵称"
-                                   class="layui-input">
-                        </div>
-                        <div class="layui-inline">
-                            <input type="text" name="blogAddress" autocomplete="off" placeholder="请输入地址"
-                                   class="layui-input">
-                        </div>
-                        <div class="layui-inline">
-                            <button class="layui-btn" lay-submit lay-filter="search"><i
-                                    class="layui-icon">&#xe615;</i>
-                            </button>
-                        </div>
-                    </form>
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <div class="layui-inline">
+                    <input autocomplete="off" class="layui-input" name="nickname" placeholder="请输入昵称"
+                           type="text">
                 </div>
+                <div class="layui-inline">
+                    <input autocomplete="off" class="layui-input" name="blogAddress" placeholder="请输入地址"
+                           type="text">
+                </div>
+                <div class="layui-inline" style="line-height: 5px;">
+                    <button class="layui-btn layuiadmin-btn-useradmin" lay-filter="search" lay-submit="">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="layui-card-body">
                 <table class="layui-hide" id="manage" lay-filter="manage"></table>
-                <script type="text/html" id="topbar">
+                <script id="topbar" type="text/html">
                     <div class="layui-btn-container">
-                        <button class="layui-btn layui-btn-danger" lay-event="delAll"><i class="layui-icon"></i>批量删除
+                        <button class="layui-btn layuiadmin-btn-role layui-btn-sm layui-btn-danger"
+                                lay-event="batchDel" data-type="batchDel">批量删除
                         </button>
-                        <button class="layui-btn layui-btn-normal"
-                                onclick="WeAdminShow('好友编辑', '/auth/friend/edit', 500, 230)"><i
-                                class="layui-icon"></i>添加
+                        <button class="layui-btn layuiadmin-btn-role layui-btn-sm" lay-event="add"
+                                data-type="add">添加
                         </button>
                     </div>
                 </script>
-                <script type="text/html" id="toolbar">
+                <script id="toolbar" type="text/html">
                     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</a>
                 </script>
             </div>
         </div>
-
     </div>
 </div>
-<div class="page-content-bg"></div>
-<!-- 右侧主体结束 -->
-<!-- 中部结束 -->
-<!-- 底部开始 -->
-
-<% include("../common/footer.html"){} %>
-<!-- 底部结束 -->
-<script type="text/javascript">
+<script src="/resources/layuiadmin/layui/layui.js"></script>
+<script>
     layui.config({
-        base: '/resources/static/js/'
-    }).use('admin');
-
-    layui.use(['table', 'jquery', 'form'], function () {
+        base: '/resources/layuiadmin/' // 静态资源所在路径
+    }).extend({
+        index: 'lib/index' // 主入口模块
+    }).use(['table', 'jquery', 'form'], function () {
         var table = layui.table
             , form = layui.form
             , $ = layui.$;
@@ -93,9 +74,9 @@
         table.on('toolbar(manage)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
-                case 'delAll':
+                case 'batchDel':
                     $.ajax({
-                        url: '/auth/friend/deleteList',
+                        url: '/auth/friend/delete',
                         type: 'POST',
                         dataType: 'json',
                         data: JSON.stringify(checkStatus.data),
@@ -108,6 +89,14 @@
                                 layer.msg(result.msg, {icon: 5, time: 2000});
                             }
                         }
+                    });
+                    break;
+                case 'add':
+                    layer.open({
+                        type: 2
+                        , title: '发布文章'
+                        , content: '/auth/friend/add/'
+                        , area: ['500px', '230px']
                     });
                     break;
             }
