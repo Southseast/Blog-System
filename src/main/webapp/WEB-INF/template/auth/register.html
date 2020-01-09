@@ -1,45 +1,82 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cn">
 <head>
     <title>注册</title>
-    <% include("/common/meta.html"){} %>
+    <% include("/auth/common/meta.html"){} %>
 </head>
-<body class="login-bg">
-<div class="login">
-    <div class="message">注册</div>
-    <div id="darkbannerwrap"></div>
-    <form method="post" class="layui-form">
-        <input name="nickname" placeholder="昵称" type="text" lay-verify="required" class="layui-input login-input">
-        <hr class="hr15">
-        <input name="email" placeholder="邮箱" type="text" lay-verify="required" class="layui-input login-input">
-        <hr class="hr15">
-        <input name="password" placeholder="密码" type="password" lay-verify="required" class="layui-input login-input">
-        <hr class="hr15">
-        <input name="repeatPassword" placeholder="重复密码" type="password" lay-verify="required"
-               class="layui-input login-input">
-        <hr class="hr15">
-        <input name="captcha" placeholder="验证码" type="text" lay-verify="required" class="layui-input login-input"
-               id="captcha"
-               style="width: 49.4%; display: inline-block;vertical-align: middle">
-        <img src="/auth/captcha" onclick="changeCaptcha();" id="captchaImg" class="login-input"
-             style="width: 49.4%;height: 50px; border-radius: 3px;display: inline-block;vertical-align: middle;"
-             alt="验证码刷新中">
-        <hr class="hr15">
-        <input value="注册" type="submit" lay-submit lay-filter="register" style="width:100%;" class="loginin">
-        <hr class="hr20">
-        <div>
-            <a href="/" style="color: white">返回主页</a>
-            <a href="/auth/login" style="float: right; color: white">返回登录</a>
+<body>
+<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
+    <div class="layadmin-user-login-main">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+            <h2>注册</h2>
         </div>
-    </form>
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-website"
+                       for="email"></label>
+                <input type="text" name="email" id="email" lay-verify="email" placeholder="邮箱"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-row">
+                    <div class="layui-col-xs7">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="captcha"></label>
+                        <input type="text" name="captcha" id="captcha" lay-verify="required" placeholder="图形验证码" class="layui-input">
+                    </div>
+                    <div class="layui-col-xs5">
+                        <div style="margin-left: 10px;">
+                            <img src="/auth/captcha" class="layadmin-user-login-codeimg" id="captchaImg" onclick="changeCaptcha();">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password"
+                       for="password"></label>
+                <input type="password" name="password" id="password" lay-verify="password" placeholder="密码"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password"
+                       for="repeatPassword"></label>
+                <input type="password" name="repeatPassword" id="repeatPassword" lay-verify="required" placeholder="确认密码"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-username"
+                       for="nickname"></label>
+                <input type="text" name="nickname" id="nickname" lay-verify="nickname" placeholder="昵称"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <input type="checkbox" name="agreement" lay-skin="primary" title="同意用户协议" checked>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="register">注 册</button>
+            </div>
+            <div class="layui-trans layui-form-item layadmin-user-login-other">
+                <label>社交账号注册</label>
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>
+
+                <a href="/auth/login" class="layadmin-user-jump-change layadmin-link layui-hide-xs">用已有帐号登入</a>
+                <a href="/auth/login"
+                   class="layadmin-user-jump-change layadmin-link layui-hide-sm layui-show-xs-inline-block">登入</a>
+            </div>
+        </div>
+    </div>
 </div>
-<script type="text/javascript">
+<script src="/resources/layuiadmin/layui/layui.js"></script>
+<script>
     layui.config({
-        base: '/resources/static/js/'
-    }).use('admin');
-    layui.use(['form', 'admin'], function () {
+        base: '/resources/layuiadmin/' // 静态资源所在路径
+    }).extend({
+        index: 'lib/index' // 主入口模块
+    }).use(['form', 'layer', 'jquery'], function () {
         var form = layui.form
-            , admin = layui.admin;
+            , layer = layui.layer
+            , $ = layui.$;
         //监听提交
         form.on('submit(register)', function (data) {
             $.ajax({
@@ -67,6 +104,5 @@
         document.getElementById("captcha").value = "";
     }
 </script>
-<!-- 底部结束 -->
 </body>
 </html>

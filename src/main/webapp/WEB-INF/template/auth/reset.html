@@ -1,34 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cn">
 <head>
     <title>重置密码</title>
-    <% include("/common/meta.html"){} %>
+    <% include("/auth/common/meta.html"){} %>
 </head>
-<body class="login-bg">
-<div class="login">
-    <div class="message">重置密码</div>
-    <div id="darkbannerwrap"></div>
-    <form method="post" class="layui-form">
-        <input name="password" placeholder="密码" type="password" lay-verify="required" class="layui-input login-input">
-        <hr class="hr15">
-        <input name="repeatPassword" placeholder="重复密码" type="password" lay-verify="required"
-               class="layui-input login-input">
-        <hr class="hr15">
-        <input value="重置密码" type="submit" lay-submit lay-filter="reset" style="width:100%;" class="loginin">
-        <hr class="hr20">
-        <div>
-            <a href="/" style="color: white">返回主页</a>
-            <a href="/auth/login" style="float: right; color: white">返回登录</a>
+<body>
+<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
+    <div class="layadmin-user-login-main">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+            <h2>重置密码</h2>
         </div>
-    </form>
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password"
+                       for="password"></label>
+                <input type="password" name="password" id="password" lay-verify="password" placeholder="密码"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password"
+                       for="repeatPassword"></label>
+                <input type="password" name="repeatPassword" id="repeatPassword" lay-verify="required" placeholder="确认密码"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="reset">重置密码</button>
+            </div>
+            <div class="layui-trans layui-form-item layadmin-user-login-other">
+                <a href="/auth/login" class="layadmin-user-jump-change layadmin-link layui-hide-xs">用已有帐号登入</a>
+                <a href="/auth/login"
+                   class="layadmin-user-jump-change layadmin-link layui-hide-sm layui-show-xs-inline-block">登入</a>
+            </div>
+        </div>
+    </div>
 </div>
-<script type="text/javascript">
+<script src="/resources/layuiadmin/layui/layui.js"></script>
+<script>
     layui.config({
-        base: '/resources/static/js/'
-    }).use('admin');
-    layui.use(['form', 'admin'], function () {
+        base: '/resources/layuiadmin/' // 静态资源所在路径
+    }).extend({
+        index: 'lib/index' // 主入口模块
+    }).use(['form', 'layer', 'jquery'], function () {
         var form = layui.form
-            , admin = layui.admin;
+            , layer = layui.layer
+            , $ = layui.$;
         //监听提交
         form.on('submit(reset)', function (data) {
             $.ajax({
@@ -49,8 +64,6 @@
             return false;
         });
     });
-
 </script>
-<!-- 底部结束 -->
 </body>
 </html>
