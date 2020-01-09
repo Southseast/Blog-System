@@ -1,18 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cn">
 <head>
-    <title>撰写</title>
-    <% include("../common/meta.html"){} %>
+    <title>评论编辑</title>
+    <% include("/auth/common/meta.html"){} %>
 </head>
-<style>
-    .simditor .simditor-body {
-        /*开启滚动条*/
-        overflow-y: scroll !important;
-        /*设置高度*/
-        min-height: 600px !important;
-        max-height: 600px !important;
-    }
-</style>
 <body>
 <%
 var comment = obj.comment!;
@@ -24,62 +15,45 @@ var comment = obj.comment!;
                 <input name="commentId" type="hidden" value="${comment.commentId!}">
                 <input name="articleId" type="hidden" value="${comment.articleId!}">
                 <div class="layui-form-item layui-form-text">
-                    <textarea id="content" name="content" placeholder="请输入内容" class="simditor"
-                              style="resize:none; display: none;">${comment.content!}</textarea>
+                    <textarea name="content" id="content" lay-verify="content" style="display: none;">${comment.content!}</textarea>
                 </div>
                 <div class="layui-form-item">
                     <button class="layui-btn" lay-submit lay-filter="post" style="width: 100%">发表评论</button>
                 </div>
             </div>
-
-
         </div>
     </form>
 </div>
-
-<%--<link rel="stylesheet" href="/resources/simditor/styles/app.css">--%>
-<link rel="stylesheet" href="/resources/simditor/styles/mobile.css">
-<link rel="stylesheet" href="/resources/simditor/styles/simditor.css">
-<script src="/resources/simditor/scripts/module.js"></script>
-<script src="/resources/simditor/scripts/uploader.js"></script>
-<script src="/resources/simditor/scripts/hotkeys.js"></script>
-<script src="/resources/simditor/scripts/simditor.js"></script>
-
-<script type="text/javascript">
-
-
-    var editor = new Simditor({
-        toolbar: [
-            'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
-            'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
-            'image', 'hr', '|', 'alignment'
-        ],
-        textarea: '#content',
-        placeholder: '写点什么...',
-        defaultImage: '/resources/static/images/avatar.png',
-        imageButton: ['upload'],
-        upload: {
-            url: '/auth/article/upload',
-            params: null,
-            fileKey: 'file',
-            leaveConfirm: '正在上传文件..',
-            connectionCount: 3
-        },
-        success: function (data) {
-            alert(data);
-        }
-    });
-
+<script src="/resources/layuiadmin/layui/layui.js"></script>
+<script>
     layui.config({
-        base: '/resources/static/js/'
-    }).use('admin');
-    layui.use(['form', 'laydate'], function () {
+        base: '/resources/layuiadmin/' // 静态资源所在路径
+    }).extend({
+        index: 'lib/index' // 主入口模块
+    }).use(['form', 'laydate', 'layedit', 'jquery'], function () {
         var laydate = layui.laydate
+            , layedit = layui.layedit
+            , $ = layui.$
             , form = layui.form;
         laydate.render({
-            elem: '#dataPickup' //指定元素
+            elem: '#dataPickup' // 指定元素
         });
 
+        layedit.set({
+            uploadImage: {
+                url: '/upload/comment'
+                , type: 'post'
+            }
+        });
+        var index = layedit.build('content', {
+            tool: ['strong', 'italic', 'underline', 'del', '|', 'left', 'center', 'right', 'link', 'unlink', 'face', 'image']
+        });
+        form.verify({
+            content: function () {
+                layedit.sync(index);
+            }
+        });
+        form.render();
         //监听提交
         form.on('submit(post)', function (data) {
             let index = parent.layer.getFrameIndex(window.name);
@@ -100,6 +74,48 @@ var comment = obj.comment!;
                 }
             });
             return false;
+        });
+    });
+
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer,
+            $ = layui.jquery,
+            form = layui.form;
+
+        layui.use('layedit', function () {
+            var layedit = layui.layedit;
+            var index = layedit.build('pattern', {height: 140});
+            /**
+             * pattern是lay-verify="pattern"（下面的）
+             * 将富文本里的内容赋值到textarea里面
+             */
+            form.verify({
+                pattern: function () {
+                    layedit.sync(index);
+                }
+            });
+            form.render();
+        });
+
+        $(window).on('load', function () {
+            form.on('submit(admin)', function (data) {
+                $.ajax({
+                    url: "{:url('admin/xxxx/xxx')}",
+                    data: $('#admin').serialize(),
+                    //获取到所有form中提交的
+                    type: 'post',
+                    success: function (res) {
+                        if (res.code == 1) {
+                            layer.alert(res.msg, function (index) {
+                                location.href = res.url;
+                            })
+                        } else {
+                            layer.msg(res.msg);
+                        }
+                    }
+                })
+                return false;
+            });
         });
     });
 </script>

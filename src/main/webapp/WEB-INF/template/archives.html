@@ -21,14 +21,15 @@ totalPages = obj.totalPages!;
                         <div id="posts" class="posts-collapse">
                             <span class="archive-move-on"></span>
                             <span class="archive-page-counter"> 还行! 目前共计 ${articleCount!} 篇日志。 继续努力。 </span>
-                            <% for (articles in articleList) { %>
-                                <% for (article in articles) { %>
-                                <% if (articleLP.first) { %>
-                                <div class="collection-title"
-                                     style="opacity: 1; display: block; transform: translateX(0px);">
-                                    <h2 class="archive-year"
-                                        style="opacity: 1; display: block; transform: translateX(0px);">${article.createY!}</h2>
-                                </div>
+                            <% var year = 0; %>
+                            <% for (article in articleList) { %>
+                                <% if (year != trim(article.createTime,'yyyy')) { %>
+                                    <div class="collection-title"
+                                         style="opacity: 1; display: block; transform: translateX(0px);">
+                                        <h2 class="archive-year"
+                                            style="opacity: 1; display: block; transform: translateX(0px);">${article.createTime!,"yyyy"}</h2>
+                                    </div>
+                                <% year = trim(article.createTime,'yyyy'); %>
                                 <% } %>
                                 <article class="post post-type-normal">
                                     <header class="post-header"
@@ -40,12 +41,11 @@ totalPages = obj.totalPages!;
                                             </a>
                                         </h3>
                                         <div class="post-meta">
-                                            <time class="post-time"> ${article.createMD!}
+                                            <time class="post-time">${article.createTime!,"MM-dd"}
                                             </time>
                                         </div>
                                     </header>
                                 </article>
-                                <% } %>
                             <% } %>
                         </div>
                     </div>
@@ -77,7 +77,7 @@ totalPages = obj.totalPages!;
                         <span class="page-number current">${page!}</span>
                         <% } else { %>
                         <!--不是当前页-->
-                        <a class="page-number" href="/${i}/">${i!}</a>
+                        <a class="page-number" href="/archives/${i}/">${i!}</a>
                         <% } %>
                         <% } %>
                         <% } %>
