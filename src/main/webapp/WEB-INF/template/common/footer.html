@@ -1,0 +1,18 @@
+<%
+var config = obj.config!,
+host = obj.host!,
+trafficVolume = obj.trafficVolume!;
+%>
+<footer id="footer" class="footer">
+    <div class="footer-inner">
+        <div class="copyright">© ${config.createY!} — <span>${date(),dateFormat="yyyy"}</span>
+            <span class="with-love" id="animate">
+                            <i class="fa fa-user"></i>
+                        </span>
+            <span class="author">${host.nickname!}</span>
+        </div>
+        <div class="powered-by">
+            <span style="display: inline;">有${trafficVolume!}只猫来偷过鱼 </span>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <title>南溟有猫</title>
+    <% include("common/meta.html"){} %>
+</head>
+<body>
+<%
+var articleCount = obj.articleCount!,
+articleList = obj.articleList!,
+page = obj.page!,
+totalPages = obj.totalPages!;
+%>
+<div class="container sidebar-position-left page-archive">
+    <% include("common/header.html"){} %>
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div class="content-wrap">
+                <div id="content" class="content">
+                    <div class="post-block archive" style="opacity: 1; display: block;">
+                        <div id="posts" class="posts-collapse">
+                            <span class="archive-move-on"></span>
+                            <span class="archive-page-counter"> 还行! 目前共计 ${articleCount!} 篇日志。 继续努力。 </span>
+                            <% for (articles in articleList) { %>
+                                <% for (article in articles) { %>
+                                <% if (articleLP.first) { %>
+                                <div class="collection-title"
+                                     style="opacity: 1; display: block; transform: translateX(0px);">
+                                    <h2 class="archive-year"
+                                        style="opacity: 1; display: block; transform: translateX(0px);">${article.createY!}</h2>
+                                </div>
+                                <% } %>
+                                <article class="post post-type-normal">
+                                    <header class="post-header"
+                                            style="opacity: 1; display: block; transform: translateY(0px);">
+                                        <h3 class="post-title">
+                                            <a class="post-title-link"
+                                               href="/article/${article.articleId!}">
+                                                <span>${article.title!}</span>
+                                            </a>
+                                        </h3>
+                                        <div class="post-meta">
+                                            <time class="post-time"> ${article.createMD!}
+                                            </time>
+                                        </div>
+                                    </header>
+                                </article>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    </div>
+                    <nav class="pagination" style="opacity: 1; display: block;">
+                        <%
+                        if (totalPages >= 1) {
+                        var begin = 0;
+                        var end = 0;
+                        if (totalPages <= 7) {
+                        begin = 1;
+                        end = totalPages;
+                        } else {
+                        begin = page - 1;
+                        end = page + 3;
+                        if (begin - 1 <= 0) {
+                        begin = 1;
+                        end = 6;
+                        }
+                        if (end > totalPages) {
+                        begin = page - 5;
+                        end = page;
+                        }
+                        }
+                        %>
+                        <!--遍历-->
+                        <% for(var i=begin;i<end;i++){ %>
+                        <!--当前页,选中-->
+                        <% if (i == page) {%>
+                        <span class="page-number current">${page!}</span>
+                        <% } else { %>
+                        <!--不是当前页-->
+                        <a class="page-number" href="/${i}/">${i!}</a>
+                        <% } %>
+                        <% } %>
+                        <% } %>
+                    </nav>
+                </div>
+            </div>
+            <% include("common/aside.html"){} %>
+        </div>
+    </main>
+    <% include("common/footer.html"){} %>
+</div>
+</body>
+</html>

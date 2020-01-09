@@ -192,7 +192,7 @@
          */
         var SAFE_FOR_TEMPLATES = false;
 
-        /* Decide if document with <html>... should be returned */
+        /* Decide if document with html... should be returned */
         var WHOLE_DOCUMENT = false;
 
         /* Track whether config is already set on this instance of DOMPurify. */
