@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="cn">
 <head>
-    <% include("common/meta.html"){} %>
+    <% include("/common/meta.html"){} %>
     <title>南溟有猫</title>
 </head>
 <body>
@@ -11,7 +11,7 @@ page = obj.page!,
 totalPages = obj.totalPages!;
 %>
 <div class="container sidebar-position-left page-home">
-    <% include("common/header.html"){} %>
+    <% include("/common/header.html"){} %>
     <main id="main" class="main">
         <div class="main-inner">
             <div class="content-wrap">
@@ -32,13 +32,7 @@ totalPages = obj.totalPages!;
                                                 <i class="fa fa-calendar-o"></i>
                                             </span>
                                             <span class="post-meta-item-text">发表于</span>
-                                            <span>${article.createTime!}</span>
-                                            <span class="post-meta-divider">|</span>
-                                            <span class="post-meta-item-icon">
-                                                <i class="fa fa-calendar-check-o"></i>
-                                            </span>
-                                            <span class="post-meta-item-text">更新于</span>
-                                            <span>${article.updateTime!}</span>
+                                            <span>${article.createTime!,'yyyy-MM-dd'}</span>
                                         </span>
                                         <span class="post-comments-count">
                                             <span class="post-meta-divider">|</span>
@@ -112,10 +106,10 @@ totalPages = obj.totalPages!;
                     </nav>
                 </div>
             </div>
-            <% include("common/aside.html"){} %>
+            <% include("/common/aside.html"){} %>
         </div>
     </main>
-    <% include("common/footer.html"){} %>
+    <% include("/common/footer.html"){} %>
 </div>
 </body>
 

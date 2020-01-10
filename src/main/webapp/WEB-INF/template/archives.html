@@ -2,7 +2,7 @@
 <html lang="cn">
 <head>
     <title>南溟有猫</title>
-    <% include("common/meta.html"){} %>
+    <% include("/common/meta.html"){} %>
 </head>
 <body>
 <%
@@ -12,7 +12,7 @@ page = obj.page!,
 totalPages = obj.totalPages!;
 %>
 <div class="container sidebar-position-left page-archive">
-    <% include("common/header.html"){} %>
+    <% include("/common/header.html"){} %>
     <main id="main" class="main">
         <div class="main-inner">
             <div class="content-wrap">
@@ -84,10 +84,10 @@ totalPages = obj.totalPages!;
                     </nav>
                 </div>
             </div>
-            <% include("common/aside.html"){} %>
+            <% include("/common/aside.html"){} %>
         </div>
     </main>
-    <% include("common/footer.html"){} %>
+    <% include("/common/footer.html"){} %>
 </div>
 </body>
 </html>

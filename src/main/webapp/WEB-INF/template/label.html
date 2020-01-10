@@ -2,7 +2,7 @@
 <html lang="cn">
 <head>
     <title>南溟有猫</title>
-    <% include("common/meta.html"){} %>
+    <% include("/common/meta.html"){} %>
 </head>
 <body>
 <%
@@ -10,7 +10,7 @@ var labelList = obj.labelList!,
 labelCount = obj.labelCount!;
 %>
 <div class="container sidebar-position-left page-post-detail">
-    <% include("common/header.html"){} %>
+    <% include("/common/header.html"){} %>
     <main id="main" class="main">
         <div class="main-inner">
             <div class="content-wrap">
@@ -35,10 +35,10 @@ labelCount = obj.labelCount!;
                     </div>
                 </div>
             </div>
-            <% include("common/aside.html"){} %>
+            <% include("/common/aside.html"){} %>
         </div>
     </main>
-    <% include("common/footer.html"){} %>
+    <% include("/common/footer.html"){} %>
 </div>
 <script type="text/javascript">
     var color = ["#818181", "#A7A7A7", "#5C5C5C", "#111111", "#CCCCCC"];
