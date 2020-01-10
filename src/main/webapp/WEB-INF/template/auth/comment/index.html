@@ -92,7 +92,7 @@
             switch (obj.event) {
                 case 'batchDel':
                     $.ajax({
-                        url: '/auth/comment/delete',
+                        url: '/auth/comment/batchDel',
                         type: 'POST',
                         dataType: 'json',
                         data: JSON.stringify(checkStatus.data),
@@ -114,7 +114,7 @@
             var data = obj.data;
             if (obj.event === 'delete') {
                 $.ajax({
-                    url: '/auth/comment/batchDel',
+                    url: '/auth/comment/delete',
                     type: 'POST',
                     dataType: 'json',
                     data: {
