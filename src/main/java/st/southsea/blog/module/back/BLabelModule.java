@@ -97,7 +97,7 @@ public class BLabelModule extends BaseModule {
     @At
     @POST
     @AdaptBy(type = JsonAdaptor.class)
-    public Result delete(List<Label> labelList) {
+    public Result batchDel(List<Label> labelList) {
         labelService.delete(labelList);
         return ajaxSuccess("删除成功");
     }

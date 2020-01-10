@@ -114,7 +114,7 @@ var labelList = obj.labelList!;
             switch (obj.event) {
                 case 'batchDel':
                     $.ajax({
-                        url: '/auth/article/delete',
+                        url: '/auth/article/batchDel',
                         type: 'POST',
                         dataType: 'json',
                         data: JSON.stringify(checkStatus.data),

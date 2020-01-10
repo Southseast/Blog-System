@@ -98,7 +98,7 @@ public class BFriendModule extends BaseModule {
     @At
     @POST
     @AdaptBy(type = JsonAdaptor.class)
-    public Result delete(List<Friend> friendList) {
+    public Result batchDel(List<Friend> friendList) {
         friendService.delete(friendList);
         return ajaxSuccess("删除成功");
     }

@@ -114,7 +114,7 @@ public class BUserModule extends BaseModule {
     @At
     @POST
     @AdaptBy(type = JsonAdaptor.class)
-    public Result delete(List<User> userList) {
+    public Result batchDel(List<User> userList) {
         userService.delete(userList);
         return ajaxSuccess("删除成功");
     }

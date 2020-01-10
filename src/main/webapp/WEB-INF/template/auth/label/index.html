@@ -69,7 +69,7 @@
             switch (obj.event) {
                 case 'batchDel':
                     $.ajax({
-                        url: '/auth/label/delete',
+                        url: '/auth/label/batchDel',
                         type: 'POST',
                         dataType: 'json',
                         data: JSON.stringify(checkStatus.data),

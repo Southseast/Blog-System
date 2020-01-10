@@ -262,7 +262,7 @@ public class AuthModule extends BaseModule {
                 "                        <p style=\"margin-top:25px;\">仅在五分钟内有效。</p>\n" +
                 "                        <p style=\"margin-top:25px;\">PS.  如果这不是你本人的操作，请忽略此封邮件。</p>\n" +
                 "                    </div>\n" +
-                "                    <div style=\" border-top:1px solid #ebedf1; padding-top:45px; margin:30px 0 20px 0;\">南溟<a href=\"https://southseast.cc\" title=\"南溟\" target=\"_blank\" style=\" color:#4882ce; margin:0 10px; text-decoration:none;\">southseast.cc</a><p><span style=\"border-bottom:1px dashed #ccc;\" t=\"5\" times=\"\">" +
+                "                    <div style=\" border-top:1px solid #ebedf1; padding-top:45px; margin:30px 0 20px 0;\">南溟<a href=\"https://southsea.st\" title=\"南溟\" target=\"_blank\" style=\" color:#4882ce; margin:0 10px; text-decoration:none;\">southseast.cc</a><p><span style=\"border-bottom:1px dashed #ccc;\" t=\"5\" times=\"\">" +
                 yearMonthDay.format(time.getTime()) +
                 "</span></p></div>\n" +
                 "                </div>\t\t\n" +

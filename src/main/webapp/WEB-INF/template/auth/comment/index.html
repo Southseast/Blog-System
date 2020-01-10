@@ -114,7 +114,7 @@
             var data = obj.data;
             if (obj.event === 'delete') {
                 $.ajax({
-                    url: '/auth/comment/delete',
+                    url: '/auth/comment/batchDel',
                     type: 'POST',
                     dataType: 'json',
                     data: {

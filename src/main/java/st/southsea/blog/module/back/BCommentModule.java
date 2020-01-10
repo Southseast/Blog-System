@@ -112,7 +112,7 @@ public class BCommentModule extends BaseModule {
     @At
     @POST
     @AdaptBy(type = JsonAdaptor.class)
-    public Result delete(List<Comment> commentList, HttpSession session) {
+    public Result batchDel(List<Comment> commentList, HttpSession session) {
         User user = userService.fetch((String) session.getAttribute("user"));
         // 判断管理员
         if (user.getPermissionId() == 1) {

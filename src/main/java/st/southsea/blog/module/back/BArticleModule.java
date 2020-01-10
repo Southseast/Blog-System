@@ -113,7 +113,7 @@ public class BArticleModule extends BaseModule {
     @At
     @POST
     @AdaptBy(type = JsonAdaptor.class)
-    public Result delete(List<Article> articleList, HttpSession session) {
+    public Result batchDel(List<Article> articleList, HttpSession session) {
         User user = userService.fetch((String) session.getAttribute("user"));
         // 判断是否为管理员
         if (user.getPermissionId() == 1) {
