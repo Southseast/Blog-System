@@ -38,9 +38,11 @@
             </a>
             <dl class="layui-nav-child">
                 <dd>
-                    <a onclick="layer.open({type: 2,title: '个人信息',content: '/auth/user/edit/' + window.btoa('${user.email}'), area: ['500px', '850px']})">基本资料</a>
+                    <a onclick="layer.open({type: 2,title: '基本资料',content: '/auth/user/edit/' + window.btoa('${user.email}'), area: ['500px', '850px']})">基本资料</a>
                 </dd>
-                <dd><a lay-href="/auth/user/password">修改密码</a></dd>
+                <dd>
+                    <a onclick="layer.open({type: 2,title: '修改密码',content: '/auth/user/password/' + window.btoa('${user.email}'), area: ['500px', '230px']})">修改密码</a>
+                </dd>
                 <hr>
                 <dd lay-href="/auth/logout" style="text-align: center;"><a>退出</a></dd>
             </dl>

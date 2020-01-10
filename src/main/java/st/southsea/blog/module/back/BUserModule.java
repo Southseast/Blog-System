@@ -50,8 +50,16 @@ public class BUserModule extends BaseModule {
     // 编辑页面
     @At("/edit/?")
     @Ok("beetl:/auth/user/edit.html")
-    @Filters(@By(type = CheckSession.class, args = {"user", "/auth/login"}))
     public Object edit(String email, HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", userService.fetch(new String(Base64.decode(email))));
+        return map;
+    }
+
+    // 添加页面
+    @At("/password/?")
+    @Ok("beetl:/auth/user/password.html")
+    public Object password(String email, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         map.put("user", userService.fetch(new String(Base64.decode(email))));
         return map;

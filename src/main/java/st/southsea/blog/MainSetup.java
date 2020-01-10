@@ -100,7 +100,7 @@ public class MainSetup implements Setup {
             user.setOccupation("CTFer");
             user.setSignature("我想带你去看晴空万里");
             user.setBlogAddress("https://southsea.st");
-            user.setBlogAddress("https://github.com.southseast");
+            user.setGithubAddress("https://github.io/southseast");
             user.setPermissionId(1);
             dao.insert(user);
 
@@ -114,7 +114,7 @@ public class MainSetup implements Setup {
                 user.setOccupation("CTFer");
                 user.setSignature("我想带你去看晴空万里");
                 user.setBlogAddress("https://southsea.st");
-                user.setBlogAddress("https://github.com.southseast");
+                user.setGithubAddress("https://github.io/southseast");
                 user.setPermissionId(0);
                 dao.insert(user);
                 Comment comment = new Comment();

@@ -28,22 +28,22 @@
                     <input autocomplete="off" class="layui-input" name="telphone" placeholder="请输入电话"
                            type="text">
                 </div>
-                <div class="layui-inline">
-                    <input autocomplete="off" class="layui-input" name="region" placeholder="请输入地区"
-                           type="text">
-                </div>
-                <div class="layui-inline">
-                    <input autocomplete="off" class="layui-input" name="occupation" placeholder="请输入工作"
-                           type="text">
-                </div>
-                <div class="layui-inline">
-                    <input autocomplete="off" class="layui-input" name="school" placeholder="请输入毕业院校"
-                           type="text">
-                </div>
-                <div class="layui-inline">
-                    <input autocomplete="off" class="layui-input" name="signature" placeholder="请输入个性签名"
-                           type="text">
-                </div>
+                <!--                <div class="layui-inline">-->
+                <!--                    <input autocomplete="off" class="layui-input" name="region" placeholder="请输入地区"-->
+                <!--                           type="text">-->
+                <!--                </div>-->
+                <!--                <div class="layui-inline">-->
+                <!--                    <input autocomplete="off" class="layui-input" name="occupation" placeholder="请输入工作"-->
+                <!--                           type="text">-->
+                <!--                </div>-->
+                <!--                <div class="layui-inline">-->
+                <!--                    <input autocomplete="off" class="layui-input" name="school" placeholder="请输入毕业院校"-->
+                <!--                           type="text">-->
+                <!--                </div>-->
+                <!--                <div class="layui-inline">-->
+                <!--                    <input autocomplete="off" class="layui-input" name="signature" placeholder="请输入个性签名"-->
+                <!--                           type="text">-->
+                <!--                </div>-->
                 <div class="layui-inline">
                     <input autocomplete="off" class="layui-input" id="startTime" name="createTime" autocomplete="off"
                            placeholder="开始时间"
@@ -72,6 +72,7 @@
                     </div>
                 </script>
                 <script id="toolbar" type="text/html">
+                    <a class="layui-btn layui-btn-xs" lay-event="password">修改密码</a>
                     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</a>
                 </script>
@@ -109,7 +110,7 @@
                 {type: 'numbers'},
                 {type: 'checkbox'},
                 {field: 'email', title: '邮箱'},
-                {field: 'nickname', title: '昵称'},
+                {field: 'nickname', title: '昵称', width: 120},
                 {
                     field: 'sex', title: '性别'
                     , templet: function (data) {
@@ -119,13 +120,13 @@
                             return "女";
                         else
                             return "";
-                    }
+                    }, width: 80
                 },
                 {field: 'telphone', title: '电话'},
-                {field: 'region', title: '地区'},
-                {field: 'occupation', title: '工作'},
-                {field: 'school', title: '学校'},
-                {field: 'signature', title: '个性签名'},
+                // {field: 'region', title: '地区'},
+                // {field: 'occupation', title: '工作'},
+                // {field: 'school', title: '学校'},
+                // {field: 'signature', title: '个性签名'},
                 {field: 'blogAddress', title: '博客地址'},
                 {field: 'githubAddress', title: 'Github地址'},
                 {fixed: 'right', align: 'center', toolbar: '#toolbar'}
@@ -190,6 +191,13 @@
                     title: '用户编辑',
                     content: '/auth/user/edit/' + btoa(data.email),
                     area: ['500px', '850px']
+                })
+            } else if (obj.event === 'password') {
+                layer.open({
+                    type: 2,
+                    title: '密码修改',
+                    content: '/auth/user/password/' + btoa(data.email),
+                    area: ['500px', '230px']
                 })
             }
         });
