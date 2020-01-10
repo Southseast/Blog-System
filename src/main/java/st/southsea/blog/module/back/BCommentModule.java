@@ -117,12 +117,12 @@ public class BCommentModule extends BaseModule {
         // 判断管理员
         if (user.getPermissionId() == 1) {
             commentService.delete(commentList);
-            ajaxSuccess("删除成功");
+            return ajaxSuccess("删除成功");
         } else {
             // 判断用户自身评论总集中是否包含打算产出的评论集
             if (user.getCommentList().containsAll(commentList)) {
                 commentService.delete(commentList);
-                ajaxSuccess("删除成功");
+                return ajaxSuccess("删除成功");
             }
         }
         return ajaxError("删除失败");
